@@ -1,0 +1,34 @@
+/* Simple css theme for shiny app by Adam Gao. */
+
+body {
+    color: #000000;
+    position: fixed;
+    background-image: url('dog8.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    font-family: Georgia;
+}
+
+
+
+
+/* Navbar Tweaks */
+.navbar-default {
+    background-color: #3AA53A;
+    border-color: transparent;
+    
+}
+.navbar-default .navbar-nav>.active>a {
+    color: #768E76;
+    background-color: #67CB67;
+}
+.navbar-default .navbar-nav>li>a {
+    color: #ECEEEC；
+}
+
