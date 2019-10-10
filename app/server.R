@@ -21,7 +21,8 @@ library(dplyr)
 
 ## Load Data
 
-dog2018 <- read.csv("DogLicensing_clean.csv")
+
+dog2018 <- read.csv('DogLicensing_clean.csv')
 dog2018$AnimalName  =  as.character(dog2018$AnimalName)
 dog2018$BreedName = as.character(dog2018$BreedName)
 dog2018$AnimalGender = factor(

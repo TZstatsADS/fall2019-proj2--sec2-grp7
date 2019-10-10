@@ -4,6 +4,8 @@ library(wordcloud2)
 library(plotly)
 library(DT)
 
+
+dog2018 <- read.csv("DogLicensing_clean.csv")
 BreedList <- unique(dog2018$BreedName)
 
 # Define UI for application that draws a histogram
@@ -18,7 +20,7 @@ shinyUI(navbarPage(
            mainPanel(width= 7,
                      # h1("Project: Open Data NYC - an RShiny app development project"),
                      h2("Project Summary"),
-                     h5("The DogPark ShinyApp helps you visualize dog and dog park data for all of New York City! In particular, we wanted to give dog-loving NYC renters a user-friendly way to find an apartment location that best combines their neighborhood interests with easy access to fun parks for their canine pals. The different information tabs (accessible above) are explained below. Enjoy!"),
+                     h5("The DogPark ShinyApp helps you visualize dog and dog park data for all of New York City! In particular, we wanted to give users information about dogs nearby and dog-loving NYC renters a user-friendly way to find an apartment location that best combines their neighborhood interests with easy access to fun parks for their canine pals. The different information tabs (accessible above) are explained below. Enjoy!"),
                      h3("   - ",strong("1. Introduction")),
                      h5("o You are here"),
                      h5("o This tab describes the goal of the app and details its individual tabs"),
@@ -30,7 +32,7 @@ shinyUI(navbarPage(
                      h3("   - ",strong("3. Map")),
                      h5("o This is an interactive map of NYC with dog parks clearly marked across the city"),
                      h5("o Click for anywhere on the map for additional location info"),
-                     h3("   - ",strong("4. Dog Dating Plan")),
+                     h3("   - ",strong("4. Find a 'DogMate'")),
                      h5("o By entering your dog's basic information, we can pick the best neighbrhood for your dog to live"),
                      h3("   - ",strong("5. More")),
                      h5("o The", strong("Data"), "page provides more info on the datasets used for this app"),
