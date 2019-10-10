@@ -1,54 +1,70 @@
-library(geojsonio)
-library(geojsonR)
-library(leaflet)
-library(jsonlite)
-library(plyr)
+library(tidyverse)
 library(proj4)
 library(revgeo)
+library(geojsonio)
+library(geojsonR)
 
+data_file = "NYC Parks Dog Runs.geojson" 
+park_js = FROM_GeoJson(url_file_string = data_file)
 
-data_file_1 = 'dog_park_clean.csv'
-park_df  = read.csv(data_file_1)
-data_file_2 = 'UHF_42_DOHMH_2009_cleaned.json'
-neigh_df = fromJSON(data_file_2)
-
-
-# basemap 
 i = integer()
-l = list()    
-for (i in 1:42) {
-  # ignore the first since the neighbourhood associated with is NA 
-  MyArray = neigh_df$features$geometry$coordinates[i+1][[1]]
-  xy  = as.data.frame( alply(MyArray,1) ) 
-  # Transformed data
-  proj4string <- "+proj=lcc +lat_1=40.66666666666666 +lat_2=41.03333333333333 +lat_0=40.16666666666666 +lon_0=-74 +x_0=300000 +y_0=0 +datum=NAD83 +units=us-ft +no_defs"
-  pj <- project(xy, proj4string, inverse=TRUE)
-  lonlat <- data.frame(long=pj$x, lat=pj$y)
-  l[[neigh_df$features$properties$UHF_NEIGH[i+1]]] = lonlat
+dog_park_name = vector() 
+dog_park_zip  = list()
+dog_park_long = vector() 
+dog_park_lat = vector() 
+
+for (i in 1:87){
+  dog_park_name[i]  = as.character( park_js$features[[i]]$properties$name)
+  dog_park_zip[i] = park_js$features[[i]]$properties$zipcode
+  dog_park_long[i] = colMeans(park_js$features[[i]]$geometry$coordinates[[1]])[1]
+  dog_park_lat[i] = colMeans(park_js$features[[i]]$geometry$coordinates[[1]])[2]
+} 
+
+# replace  Null zip code in orignal park geojson file 
+# by converted coordinateds to zip code using revgeo 
+
+dog_park_coord_to_zip = vector()
+dog_park_zip_final = vector()
+
+for (i in 1:87){
+  if (is.null(dog_park_zip[[i]][1]) ){
+  dog_park_coord_to_zip[i]= revgeo(longitude =dog_park_long[i], 
+                                   latitude =dog_park_lat[i], 
+                                   output='hash', item = 'zip')$zip
+   dog_park_zip_final[i] = dog_park_coord_to_zip[i]
+  }else if ( dog_park_zip[[i]][1] == "Null" ){
+      dog_park_coord_to_zip[i]= revgeo(longitude =dog_park_long[i], 
+                                       latitude =dog_park_lat[i], 
+                                       output='hash', item = 'zip')$zip
+      dog_park_zip_final[i] = dog_park_coord_to_zip[i]
+    }else{
+    dog_park_zip_final[i] = dog_park_zip[i]
+  }
 }
 
-basemap <- leaflet() %>% addTiles()
-for (i in 1:42){ 
-  basemap <- addPolygons(basemap, data = as.matrix(l[[i]]),fill=NA)
-} 
-basemap 
+# import zip code dataset 
+nyc_neigh_zip <- read.csv('nyc_zipcode.csv')
+nyc_neigh_zip = nyc_neigh_zip %>%
+  mutate(zipcode = strsplit(gsub("[][\"]", "", nyc_neigh_zip$ZIP.Codes), ", ")) %>%
+  unnest(zipcode)
 
+# check to see if all dog parks' zip code are in the our zip code list 
+all( dog_park_zip_final %in% nyc_neigh_zip$zipcode)
 
-# parkmap
-# add paw icon
-pawIcons <- iconList( pawprint = makeIcon("paw.png", 18, 18))
-parkmap = basemap 
+# find which neighbourhood the dog park belongs to by its zip code 
+dog_park_neigh_final = vector()
 for (i in 1:87){
-  parkmap = parkmap %>% addMarkers(icon = pawIcons,
-                                   lng = park_df$park_long[i],
-                                   lat= park_df$park_lat[i], 
-                                   popup =park_df$park_name[i] ) 
-} 
-parkmap 
+  dog_park_neigh_final[i]=  nyc_neigh_zip %>% filter(zipcode == dog_park_zip_final[[i]] ) %>% select(Neighborhood)  
+  dog_park_neigh_final[i] = as.character(dog_park_neigh_final[[i]])
+}
+
+dog_park_new  =   tibble (park_name = dog_park_name,
+                          park_long = dog_park_long, 
+                          park_lat =  dog_park_lat, 
+                          park_neighb = as.character(dog_park_neigh_final), 
+                          park_zipcode  = as.character(dog_park_zip_final))
 
 
+write.csv(dog_park_new, file = "dog_park_clean.csv",row.names=FALSE) 
 
-
-
-
-
+#   read_csv("dog_park_clean.csv")
