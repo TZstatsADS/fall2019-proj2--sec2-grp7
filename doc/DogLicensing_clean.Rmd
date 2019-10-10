@@ -19,8 +19,8 @@ library(tidytext)
 
 ```{r}
 # Data Processing extract year = 2018
-dog2018<-read.csv("NYC_Dog_Licensing_Dataset.csv") %>% filter(Extract.Year==2018)
-nyc_neigh_zip <- read.csv('nyc_zipcode.csv')
+dog2018<-read.csv("../data/NYC_Dog_Licensing_Dataset.csv") %>% filter(Extract.Year==2018)
+nyc_neigh_zip <- read.csv('../data/nyc_zipcode.csv')
 
 # Add Age
 dog2018$Age<- 2018-dog2018$AnimalBirthMonth
