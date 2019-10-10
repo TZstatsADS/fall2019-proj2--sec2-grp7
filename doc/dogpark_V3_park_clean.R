@@ -4,7 +4,7 @@ library(revgeo)
 library(geojsonio)
 library(geojsonR)
 
-data_file = "NYC Parks Dog Runs.geojson" 
+data_file = "../data/NYC Parks Dog Runs.geojson" 
 park_js = FROM_GeoJson(url_file_string = data_file)
 
 i = integer()
