@@ -51,11 +51,11 @@ Term: Fall 2019
 
 
 + **Contribution statement**: 
-    + Sam Unger: Topic idea, Dataset collection, Introduction tab, Data tab, and Contact Us tab
-    + Qiqi Wu: Data cleaning, Map tab (plot, neighborhood border, map click), Dog dating tab, App Publication, Presentation 
-    + Yakun Wang: Data cleaning, Overview tab (tab1-3), Map tab (output window), Dog dating tab
-    + Yuhan Gong: Neiborhood dataset, Overview tab (tab4), Map tab (decoration)
-    + Sen Dai: css style, shinyapp decoration (front, backgroud). 
+    + **Sam Unger**: Topic idea, Dataset collection, Introduction tab, Data tab, and Contact Us tab
+    + **Qiqi Wu**: Data cleaning, Map tab (plot, neighborhood border, map click), Dog dating tab, App Publication, Presentation 
+    + **Yakun Wang**: Data cleaning, Overview tab (tab1-3), Map tab (output window), Dog dating tab
+    + **Yuhan Gong**: Neiborhood dataset, Overview tab (tab4), Map tab (decoration)
+    + **Sen Dai**: css style, shinyapp decoration (front, backgroud). 
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
