@@ -21,8 +21,7 @@ library(dplyr)
 
 ## Load Data
 
-
-dog2018 <- read.csv('DogLicensing_clean.csv')
+dog2018 <- read.csv("www/DogLicensing_clean.csv")
 dog2018$AnimalName  =  as.character(dog2018$AnimalName)
 dog2018$BreedName = as.character(dog2018$BreedName)
 dog2018$AnimalGender = factor(
@@ -31,13 +30,13 @@ dog2018$AnimalGender = factor(
   labels = c("Female", "Male", "Unknown")
 )
 
-data_file_1 = "dog_park_clean.csv"
+data_file_1 = "www/dog_park_clean.csv"
 park_df  = read.csv(data_file_1)
 
-data_file_2 = "UHF_42_DOHMH_2009_transfromed.json"
+data_file_2 = "www/UHF_42_DOHMH_2009_transfromed.json"
 neigh_coord = fromJSON(data_file_2)
 data("zipcode")
-nbhd_zip <- read.csv("nbhd_zip_clean.csv")
+nbhd_zip <- read.csv("www/nbhd_zip_clean.csv")
 
 
 shinyServer(function(input, output) {

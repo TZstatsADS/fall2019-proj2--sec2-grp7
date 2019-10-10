@@ -1,0 +1,1 @@
+img(src="dog8.jpg", width=800), align="center"
