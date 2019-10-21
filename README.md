@@ -21,7 +21,7 @@ Term: Fall 2019
 
 + Team # 7
 + **Projec title**: DogPark
-+ **Projec Link**: [DogPark Shiny App](https://qqwu.shinyapps.io/dogpark/)
++ **Projec Link**: [DogPark Shiny App](https://yw3211.shinyapps.io/DogPark/)
  + Team members
 	+ Qiqi Wu [qw2273@columbia.edu](qw2273@columbia.edu)
 	+ Yakun Wang [yw3211@columbia.edu](yw3211@columbia.edu)
